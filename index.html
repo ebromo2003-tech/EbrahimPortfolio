@@ -1,0 +1,1811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ebrahim Ali - UX/UI Designer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&family=Chivo+Mono:ital,wght@0,300..600;1,300..600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --mv-bone: #EBEFFE;
+            --mv-ink: #182645;
+            --mv-brass: #AFC1F3;
+            --mv-pine: #263858;
+            --mv-fog: #DDE4FA;
+            --mv-stone: #4D5E80;
+            --mv-cloud: #FFFFFF;
+            --mv-night: #182645;
+            --mv-acc: var(--mv-ink);
+            --pad: 56px;
+            --maxw: clamp(1280px, 92vw, 1520px);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-padding-top: 96px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Mona Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--mv-bone);
+            color: var(--mv-ink);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .ea-nav {
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            right: 0;
+            top: 0;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding: 18px clamp(20px, 3.4vw, 56px);
+            background: color-mix(in srgb, var(--mv-bone) 90%, transparent);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid color-mix(in srgb, var(--mv-ink) 8%, transparent);
+            transition: all 0.3s ease;
+        }
+
+        .ea-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-size: 17px;
+            letter-spacing: -0.02em;
+            font-weight: 700;
+            font-stretch: 112%;
+            color: var(--mv-ink);
+        }
+
+        .ea-logo svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        .ea-links {
+            display: flex;
+            gap: 2px;
+            list-style: none;
+            margin: 0 auto;
+            padding: 4px;
+            border-radius: 10px;
+            background: color-mix(in srgb, var(--mv-bone) 70%, transparent);
+            backdrop-filter: blur(14px);
+            box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--mv-ink) 12%, transparent);
+        }
+
+        .ea-links a {
+            display: block;
+            padding: 8px 14px;
+            border-radius: 7px;
+            font-size: 13px;
+            text-decoration: none;
+            color: var(--mv-ink);
+            transition: background 0.25s, color 0.25s;
+            font-weight: 500;
+        }
+
+        .ea-links a:hover {
+            background: color-mix(in srgb, var(--mv-ink) 10%, transparent);
+        }
+
+        /* Portfolio Icon in Nav */
+        .ea-portfolio-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: color-mix(in srgb, var(--mv-brass) 15%, transparent);
+            color: var(--mv-brass);
+            transition: all 0.3s ease;
+            margin-left: 8px;
+        }
+
+        .ea-portfolio-icon:hover {
+            background: var(--mv-brass);
+            color: var(--mv-cloud);
+            transform: translateY(-2px);
+        }
+
+        .ea-portfolio-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Buttons Base */
+        .mv-btn {
+            position: relative;
+            display: inline-flex;
+            padding: 0;
+            min-height: 54px;
+            border-radius: 10px;
+            text-decoration: none;
+            cursor: pointer;
+            isolation: isolate;
+            white-space: nowrap;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.005em;
+            border: 0;
+            color: var(--fg);
+            transition: all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .mv-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .mv-btn:active {
+            transform: scale(0.97);
+            transition-duration: 0.12s;
+        }
+
+        .mv-face {
+            position: relative;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            width: 100%;
+            min-height: inherit;
+            padding: 0 8px 0 22px;
+            border-radius: inherit;
+            background: var(--face);
+            backdrop-filter: blur(14px) saturate(1.3);
+            box-shadow: inset 0 0 0 1px var(--rim);
+            overflow: hidden;
+            isolation: isolate;
+        }
+
+        .mv-fill {
+            position: absolute;
+            z-index: 0;
+            inset: 0;
+            background: var(--fill);
+            border-radius: inherit;
+            clip-path: inset(0 100% 0 0);
+            transition: clip-path 0.6s cubic-bezier(0.7, 0, 0.2, 1);
+        }
+
+        .mv-btn:hover .mv-fill {
+            clip-path: inset(0 0 0 0);
+        }
+
+        .mv-lbl {
+            position: relative;
+            z-index: 1;
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: center;
+            line-height: 1.15;
+        }
+
+        .mv-roll {
+            display: block;
+            height: 1.2em;
+            overflow: hidden;
+            line-height: 1.2;
+        }
+
+        .mv-l1, .mv-l2 {
+            display: block;
+            transition: translate 0.5s cubic-bezier(0.7, 0, 0.2, 1);
+        }
+
+        .mv-btn:hover .mv-l1,
+        .mv-btn:hover .mv-l2 {
+            translate: 0 -100%;
+        }
+
+        .mv-arr {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            place-items: center;
+            width: 38px;
+            height: 38px;
+            flex: none;
+            border-radius: 6px;
+            background: var(--chip);
+            color: var(--chipfg);
+            overflow: hidden;
+            transition: background 0.4s, color 0.4s;
+        }
+
+        .mv-arr > span {
+            grid-area: 1/1;
+            display: grid;
+            place-items: center;
+            transition: transform 0.55s cubic-bezier(0.7, 0, 0.2, 1);
+        }
+
+        .mv-arr svg {
+            width: 15px;
+            height: 15px;
+        }
+
+        .mv-a2 {
+            transform: translate(-160%, 160%);
+        }
+
+        .mv-btn:hover .mv-a1 {
+            transform: translate(160%, -160%);
+        }
+
+        .mv-btn:hover .mv-a2 {
+            transform: none;
+        }
+
+        .mv-btn:hover .mv-arr {
+            background: var(--chip2);
+            color: var(--chipfg2);
+        }
+
+        .mv-selb {
+            position: absolute;
+            z-index: 2;
+            inset: -5px;
+            border-radius: 13px;
+            box-shadow: 0 0 0 1.5px var(--mv-brass);
+            pointer-events: none;
+            opacity: 0;
+            scale: 1.06;
+            transition: opacity 0.25s, scale 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .mv-selb i {
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            background: var(--mv-cloud);
+            box-shadow: 0 0 0 1.5px var(--mv-brass);
+            translate: -50% -50%;
+        }
+
+        .mv-selb i:nth-child(1) { left: 0; top: 0; }
+        .mv-selb i:nth-child(2) { left: 100%; top: 0; }
+        .mv-selb i:nth-child(3) { left: 0; top: 100%; }
+        .mv-selb i:nth-child(4) { left: 100%; top: 100%; }
+
+        .mv-btn:hover .mv-selb {
+            opacity: 1;
+            scale: 1;
+        }
+
+        .mv-btn.mv-solid {
+            --face: var(--mv-brass);
+            --rim: transparent;
+            --fill: var(--mv-cloud);
+            --fg: var(--mv-ink);
+            --chip: var(--mv-ink);
+            --chipfg: var(--mv-brass);
+            --chip2: var(--mv-ink);
+            --chipfg2: var(--mv-cloud);
+        }
+
+        .mv-btn.mv-ghost {
+            --face: color-mix(in srgb, var(--mv-cloud) 8%, transparent);
+            --rim: color-mix(in srgb, var(--mv-ink) 28%, transparent);
+            --fill: var(--mv-ink);
+            --fg: var(--mv-ink);
+            --chip: color-mix(in srgb, var(--mv-ink) 7%, transparent);
+            --chipfg: var(--mv-ink);
+            --chip2: var(--mv-brass);
+            --chipfg2: var(--mv-ink);
+        }
+
+        /* Glass effect on hover for Download CV */
+        .mv-btn.mv-ghost:hover {
+            --face: color-mix(in srgb, var(--mv-cloud) 20%, transparent);
+            backdrop-filter: blur(20px) saturate(1.5);
+            box-shadow: 0 8px 32px color-mix(in srgb, var(--mv-ink) 15%, transparent), 
+                        inset 0 0 0 1px color-mix(in srgb, var(--mv-cloud) 30%, transparent);
+        }
+
+        .mv-btn.mv-quiet {
+            min-height: 40px;
+            font-size: 13px;
+            border-radius: 8px;
+            --face: var(--mv-brass);
+            --rim: transparent;
+            --fill: var(--mv-cloud);
+            --fg: var(--mv-ink);
+            --chip: var(--mv-ink);
+            --chipfg: var(--mv-brass);
+            --chip2: var(--mv-ink);
+            --chipfg2: var(--mv-cloud);
+        }
+
+        .mv-btn.mv-quiet .mv-arr {
+            width: 28px;
+            height: 28px;
+            border-radius: 5px;
+        }
+
+        .mv-btn.mv-quiet .mv-face {
+            padding-left: 16px;
+            gap: 10px;
+            padding-right: 6px;
+        }
+
+        .mv:not(.mv-dark) .mv-btn.mv-solid {
+            --face: var(--mv-ink);
+            --fill: var(--mv-brass);
+            --fg: var(--mv-cloud);
+            --chip: var(--mv-brass);
+            --chipfg: var(--mv-ink);
+            --chip2: var(--mv-ink);
+            --chipfg2: var(--mv-brass);
+        }
+
+        .mv:not(.mv-dark) .mv-btn.mv-ghost {
+            --face: transparent;
+            --rim: color-mix(in srgb, var(--mv-ink) 28%, transparent);
+            --fill: var(--mv-ink);
+            --fg: var(--mv-ink);
+            --chip: color-mix(in srgb, var(--mv-ink) 7%, transparent);
+            --chipfg: var(--mv-ink);
+            --chip2: var(--mv-brass);
+            --chipfg2: var(--mv-ink);
+        }
+
+        /* Project Card Buttons */
+        .ea-project-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        .ea-card-btn {
+            min-height: 40px;
+            font-size: 12px;
+            border-radius: 8px;
+            --face: transparent;
+            --rim: color-mix(in srgb, var(--mv-ink) 15%, transparent);
+            --fill: var(--mv-ink);
+            --fg: var(--mv-ink);
+            --chip: color-mix(in srgb, var(--mv-ink) 8%, transparent);
+            --chipfg: var(--mv-ink);
+            --chip2: var(--mv-brass);
+            --chipfg2: var(--mv-ink);
+        }
+
+        .ea-card-btn:hover {
+            --face: color-mix(in srgb, var(--mv-cloud) 40%, transparent);
+            backdrop-filter: blur(12px) saturate(1.5);
+            box-shadow: 0 4px 12px color-mix(in srgb, var(--mv-ink) 8%, transparent),
+                        inset 0 0 0 1px color-mix(in srgb, var(--mv-cloud) 20%, transparent);
+        }
+
+        .ea-card-btn .mv-face {
+            padding: 0 16px;
+            gap: 8px;
+        }
+
+        .ea-card-btn .mv-arr {
+            width: 26px;
+            height: 26px;
+            border-radius: 5px;
+        }
+
+        .ea-card-btn .mv-arr svg {
+            width: 13px;
+            height: 13px;
+        }
+
+        /* Layout */
+        .mv-wrap {
+            --pad: 56px;
+            width: 100%;
+            max-width: calc(var(--maxw) + var(--pad) * 2);
+            margin: 0 auto;
+            padding-left: var(--pad);
+            padding-right: var(--pad);
+        }
+
+        /* Hero Section */
+        .ea-hero {
+            min-height: 100svh;
+            padding-top: 140px;
+            padding-bottom: 120px;
+            background: var(--mv-bone);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ea-hero-content {
+            display: grid;
+            grid-template-columns: 1fr 450px;
+            gap: 80px;
+            align-items: center;
+            max-width: 1200px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .ea-name {
+            margin: 0;
+            font-size: clamp(48px, 6vw, 88px);
+            line-height: 1.05;
+            letter-spacing: -0.04em;
+            font-weight: 700;
+            color: var(--mv-ink);
+            margin-bottom: 16px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.9s ease 0.1s forwards;
+        }
+
+        .ea-role {
+            margin: 0;
+            font-size: clamp(24px, 3vw, 36px);
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            font-weight: 600;
+            color: var(--mv-brass);
+            margin-bottom: 24px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.9s ease 0.2s forwards;
+        }
+
+        .ea-role span {
+            display: block;
+        }
+
+        .ea-statement {
+            margin: 0;
+            font-size: clamp(16px, 1.8vw, 20px);
+            line-height: 1.6;
+            color: var(--mv-stone);
+            max-width: 640px;
+            margin-bottom: 32px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.9s ease 0.3s forwards;
+        }
+
+        .ea-focus {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.9s ease 0.4s forwards;
+        }
+
+        .ea-focus-item {
+            padding: 8px 16px;
+            border-radius: 6px;
+            background: color-mix(in srgb, var(--mv-brass) 12%, transparent);
+            color: var(--mv-ink);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .ea-btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.9s ease 0.5s forwards;
+        }
+
+        /* Profile Photo with Animated Background */
+        .ea-profile-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform: translateX(30px);
+            animation: fadeLeft 0.9s ease 0.6s forwards;
+        }
+
+        .ea-profile-bg {
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            overflow: visible;
+        }
+
+        .ea-bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.5;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .ea-bg-shape-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--mv-brass);
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .ea-bg-shape-2 {
+            width: 250px;
+            height: 250px;
+            background: color-mix(in srgb, var(--mv-pine) 60%, var(--mv-brass));
+            bottom: 20%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .ea-bg-shape-3 {
+            width: 200px;
+            height: 200px;
+            background: color-mix(in srgb, var(--mv-brass) 70%, var(--mv-cloud));
+            top: 50%;
+            right: 20%;
+            animation-delay: 4s;
+        }
+
+        .ea-bg-shape-4 {
+            width: 180px;
+            height: 180px;
+            background: color-mix(in srgb, var(--mv-pine) 40%, transparent);
+            bottom: 30%;
+            left: 15%;
+            animation-delay: 6s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(20px, -20px) scale(1.05); }
+            50% { transform: translate(-10px, 10px) scale(0.95); }
+            75% { transform: translate(15px, 15px) scale(1.02); }
+        }
+
+        .ea-profile-img {
+            position: relative;
+            z-index: 1;
+            width: 380px;
+            height: 380px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 8px solid var(--mv-cloud);
+            box-shadow: 0 20px 60px color-mix(in srgb, var(--mv-ink) 15%, transparent),
+                        0 0 0 1px color-mix(in srgb, var(--mv-brass) 20%, transparent);
+        }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeLeft {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Section Base */
+        .mv-sec {
+            position: relative;
+            padding: 120px 0;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .mv-sec.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mv-sec.mv-dark {
+            background: var(--mv-ink);
+            color: var(--mv-cloud);
+        }
+
+        /* Eyebrow */
+        .mv-eb {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            width: max-content;
+            max-width: 100%;
+            margin: 0;
+            padding: 7px 13px 7px 11px;
+            border-radius: 6px;
+            background: color-mix(in srgb, var(--mv-ink) 6%, transparent);
+            box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--mv-ink) 12%, transparent);
+            color: var(--mv-ink);
+            font-size: 11.5px;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            margin-bottom: 24px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.8s ease, transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .mv-sec.is-visible .mv-eb {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mv-eb i {
+            display: block;
+            flex: none;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--mv-brass);
+        }
+
+        .mv-dark .mv-eb {
+            color: var(--mv-cloud);
+            background: color-mix(in srgb, var(--mv-cloud) 9%, transparent);
+            box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--mv-cloud) 18%, transparent);
+        }
+
+        /* Headings */
+        .mv-hd {
+            margin: 0;
+            letter-spacing: -0.042em;
+            text-wrap: balance;
+            font-weight: 600;
+            font-size: clamp(40px, 4.8vw, 64px);
+            line-height: 0.92;
+            margin-bottom: 64px;
+        }
+
+        /* Projects Grid */
+        .ea-projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(540px, 1fr));
+            gap: 40px;
+            margin-top: 64px;
+        }
+
+        .ea-project-card {
+            padding: 0;
+            border-radius: 12px;
+            background: var(--mv-cloud);
+            box-shadow: 0 1px 3px color-mix(in srgb, var(--mv-ink) 8%, transparent);
+            transition: transform 0.3s, box-shadow 0.3s;
+            opacity: 0;
+            transform: translateY(30px);
+            overflow: hidden;
+        }
+
+        .mv-sec.is-visible .ea-project-card {
+            animation: fadeUpCard 0.8s ease forwards;
+        }
+
+        .ea-project-card:nth-child(1) { animation-delay: 0.1s; }
+        .ea-project-card:nth-child(2) { animation-delay: 0.2s; }
+        .ea-project-card:nth-child(3) { animation-delay: 0.3s; }
+        .ea-project-card:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes fadeUpCard {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ea-project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px color-mix(in srgb, var(--mv-ink) 12%, transparent);
+        }
+
+        .ea-project-img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            background: color-mix(in srgb, var(--mv-stone) 20%, transparent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: var(--mv-stone);
+        }
+
+        .ea-project-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .ea-project-content {
+            padding: 32px;
+        }
+
+        .ea-project-num {
+            font-family: 'Chivo Mono', monospace;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--mv-brass);
+            margin-bottom: 12px;
+        }
+
+        .ea-project-title {
+            margin: 0;
+            font-size: clamp(24px, 2.4vw, 32px);
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--mv-ink);
+            margin-bottom: 8px;
+        }
+
+        .ea-project-type {
+            margin: 0;
+            font-size: 14px;
+            color: var(--mv-stone);
+            margin-bottom: 16px;
+        }
+
+        .ea-project-desc {
+            margin: 0;
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--mv-ink);
+            margin-bottom: 20px;
+        }
+
+        .ea-project-focus {
+            display: flex;
+            gap: 8px;
+            font-size: 13px;
+            font-family: 'Chivo Mono', monospace;
+        }
+
+        .ea-project-focus span:first-child {
+            color: var(--mv-stone);
+            font-weight: 500;
+        }
+
+        /* About Section */
+        .ea-about-content {
+            max-width: 800px;
+            margin-top: 64px;
+        }
+
+        .ea-about-text {
+            font-size: clamp(16px, 1.8vw, 18px);
+            line-height: 1.7;
+            color: var(--mv-cloud);
+            margin-bottom: 32px;
+        }
+
+        .ea-about-edu h3 {
+            margin: 0 0 12px;
+            font-size: 20px;
+            color: var(--mv-brass);
+        }
+
+        .ea-about-edu p {
+            margin: 0;
+            font-size: 15px;
+            line-height: 1.6;
+            color: color-mix(in srgb, var(--mv-cloud) 78%, transparent);
+        }
+
+        .ea-about-goal {
+            margin-top: 32px;
+            padding: 24px;
+            border-left: 3px solid var(--mv-brass);
+            background: color-mix(in srgb, var(--mv-cloud) 6%, transparent);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .ea-about-goal p {
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--mv-cloud);
+            font-style: italic;
+        }
+
+        /* Skills Section */
+        .ea-skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-top: 64px;
+        }
+
+        .ea-skill-category {
+            padding: 32px;
+            border-radius: 12px;
+            background: var(--mv-cloud);
+            box-shadow: 0 1px 3px color-mix(in srgb, var(--mv-ink) 6%, transparent);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .mv-sec.is-visible .ea-skill-category {
+            animation: fadeUpSkill 0.8s ease forwards;
+        }
+
+        .ea-skill-category:nth-child(1) { animation-delay: 0.1s; }
+        .ea-skill-category:nth-child(2) { animation-delay: 0.2s; }
+        .ea-skill-category:nth-child(3) { animation-delay: 0.3s; }
+        .ea-skill-category:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes fadeUpSkill {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ea-skill-title {
+            margin: 0 0 16px;
+            font-size: 18px;
+            letter-spacing: -0.02em;
+        }
+
+        .ea-skill-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .ea-skill-list li {
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--mv-ink);
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .ea-skill-list li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--mv-brass);
+        }
+
+        /* Contact Section */
+        .ea-contact-content {
+            max-width: 700px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .ea-contact-intro {
+            margin: 0;
+            font-size: clamp(16px, 1.8vw, 18px);
+            line-height: 1.6;
+            color: color-mix(in srgb, var(--mv-cloud) 78%, transparent);
+            margin-bottom: 48px;
+        }
+
+        .ea-contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .ea-contact-link {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding: 24px;
+            border-radius: 12px;
+            background: color-mix(in srgb, var(--mv-cloud) 6%, transparent);
+            text-decoration: none;
+            color: var(--mv-cloud);
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .ea-contact-link:hover {
+            background: color-mix(in srgb, var(--mv-cloud) 12%, transparent);
+            transform: translateY(-2px);
+        }
+
+        .ea-link-label {
+            font-family: 'Chivo Mono', monospace;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--mv-brass);
+        }
+
+        .ea-link-value {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .ea-contact-cta {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .ea-footer {
+            margin-top: 80px;
+            padding-top: 32px;
+            border-top: 1px solid color-mix(in srgb, var(--mv-cloud) 12%, transparent);
+            text-align: center;
+            font-size: 13px;
+            font-family: 'Chivo Mono', monospace;
+            color: color-mix(in srgb, var(--mv-cloud) 50%, transparent);
+        }
+
+        /* Mobile Menu */
+        .ea-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            margin-left: auto;
+        }
+
+        .ea-menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--mv-ink);
+            transition: all 0.3s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 1099px) {
+            .mv-wrap { --pad: 32px; }
+            .ea-hero-content { grid-template-columns: 1fr; gap: 60px; }
+            .ea-profile-wrapper { order: -1; }
+            .ea-profile-bg { width: 380px; height: 380px; }
+            .ea-bg-shape { filter: blur(40px); opacity: 0.4; }
+            .ea-bg-shape-1 { width: 240px; height: 240px; }
+            .ea-bg-shape-2 { width: 200px; height: 200px; }
+            .ea-bg-shape-3 { width: 160px; height: 160px; }
+            .ea-bg-shape-4 { width: 140px; height: 140px; }
+            .ea-profile-img { width: 300px; height: 300px; }
+        }
+
+        @media (max-width: 809px) {
+            .ea-nav { position: relative; padding: 14px 16px; background: var(--mv-bone); }
+            .ea-links {
+                display: none; position: absolute; top: 100%; left: 0; right: 0;
+                flex-direction: column; background: var(--mv-bone); padding: 16px;
+                box-shadow: 0 4px 12px color-mix(in srgb, var(--mv-ink) 10%, transparent);
+            }
+            .ea-links.active { display: flex; }
+            .ea-links a { padding: 12px 16px; }
+            .ea-menu-toggle { display: flex; }
+            .ea-navcta { margin-left: auto; }
+            .ea-name { font-size: 40px; }
+            .ea-role { font-size: 20px; }
+            .ea-statement { font-size: 16px; }
+            .ea-focus { gap: 8px; }
+            .ea-focus-item { padding: 6px 12px; font-size: 12px; }
+            .ea-btns .mv-btn { width: 100%; }
+            .ea-profile-bg { width: 300px; height: 300px; }
+            .ea-bg-shape { filter: blur(30px); opacity: 0.35; }
+            .ea-bg-shape-1 { width: 200px; height: 200px; }
+            .ea-bg-shape-2 { width: 160px; height: 160px; }
+            .ea-bg-shape-3 { width: 120px; height: 120px; }
+            .ea-bg-shape-4 { width: 100px; height: 100px; }
+            .ea-profile-img { width: 260px; height: 260px; }
+            .ea-projects-grid { grid-template-columns: 1fr; gap: 24px; }
+            .ea-project-card { padding: 0; }
+            .ea-project-content { padding: 24px; }
+            .ea-skills-grid { grid-template-columns: 1fr; }
+            .ea-skill-category { padding: 24px; }
+            .ea-contact-links { gap: 16px; }
+            .ea-contact-link { padding: 20px; }
+            .ea-contact-cta { flex-direction: column; }
+            .ea-contact-cta .mv-btn { width: 100%; }
+        }
+
+        @media (max-width: 699px) {
+            .mv-wrap { --pad: 20px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+
+        /* Blue palette and portrait art direction */
+        :root {
+            --blue-1: #EBEFFE;
+            --blue-2: #DDE4FA;
+            --blue-3: #C8D4F7;
+            --blue-4: #B8C8F5;
+            --blue-5: #AFC1F3;
+        }
+        .ea-logo img, .ea-portfolio-icon img { object-fit: contain; border-radius: 8px; }
+        .ea-hero { isolation: isolate; background: linear-gradient(120deg, var(--blue-1), var(--blue-2) 58%, var(--blue-4)); }
+        .ea-hero-content { display: block; max-width: none; position: static; }
+        .ea-hero-text { position: relative; z-index: 2; width: 56%; max-width: 690px; }
+        .ea-role { color: #38548A; }
+        .ea-profile-wrapper {
+            position: absolute; inset: 0 0 0 auto; width: 52%;
+            display: block; pointer-events: none; z-index: 0;
+            opacity: 1; transform: none; animation: none;
+            overflow: hidden;
+            -webkit-mask-image: linear-gradient(to right, transparent, #000 28%);
+            mask-image: linear-gradient(to right, transparent, #000 28%);
+        }
+        .ea-profile-wrapper::after {
+            content: ''; position: absolute; inset: 0; z-index: 2;
+            background: linear-gradient(to top, var(--blue-2), transparent 28%), linear-gradient(90deg, rgba(235,239,254,.35), rgba(175,193,243,.08));
+        }
+        .ea-profile-bg { display: none; }
+        .ea-profile-img {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            object-fit: cover; object-position: center 30%;
+            border: 0; border-radius: 0; box-shadow: none;
+        }
+        #projects { background: var(--blue-2); }
+        .ea-project-card { background: linear-gradient(135deg, var(--blue-1), var(--blue-3)); }
+        .ea-project-img { height: auto; aspect-ratio: 16 / 9; background: var(--blue-3); }
+        .ea-project-img img { object-fit: contain; }
+        .ea-focus-item { background: var(--blue-3); }
+        .ea-project-num { color: #38548A; }
+
+        /* White glass for CV and both actions on every project card. */
+        .mv .mv-btn.mv-ghost:is(:hover, :focus-visible),
+        .mv-btn.mv-ghost:is(:hover, :focus-visible),
+        .ea-card-btn:is(:hover, :focus-visible) {
+            --face: rgba(255,255,255,.50);
+            --fill: rgba(255,255,255,.26);
+            --rim: rgba(255,255,255,.90);
+            --fg: #182645;
+            --chip2: rgba(255,255,255,.75);
+            --chipfg2: #182645;
+            color: #182645;
+            box-shadow: 0 8px 24px rgba(38,56,88,.12), inset 0 1px 0 rgba(255,255,255,.9);
+        }
+        .mv-btn.mv-ghost:is(:hover, :focus-visible) .mv-face,
+        .ea-card-btn:is(:hover, :focus-visible) .mv-face {
+            background: rgba(255,255,255,.50);
+            -webkit-backdrop-filter: blur(18px) saturate(1.3);
+            backdrop-filter: blur(18px) saturate(1.3);
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,.90);
+        }
+        .mv-btn.mv-ghost:is(:hover, :focus-visible) .mv-fill,
+        .ea-card-btn:is(:hover, :focus-visible) .mv-fill { background: rgba(255,255,255,.26); }
+        .mv-btn:focus-visible { outline: 2px solid #38548A; outline-offset: 5px; }
+        @media (max-width: 1099px) and (min-width: 810px) {
+            .ea-hero-text { width: 60%; }
+            .ea-profile-wrapper { width: 48%; }
+        }
+        @media (max-width: 809px) {
+            .ea-hero { padding-top: 300px; padding-bottom: 64px; }
+            .ea-hero-text { width: 100%; max-width: none; }
+            .ea-profile-wrapper {
+                inset: 0 0 auto; width: 100%; height: 350px;
+                -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+                mask-image: linear-gradient(to bottom, #000 55%, transparent);
+            }
+            .ea-profile-img { width: 100%; height: 100%; object-position: center 25%; }
+            .ea-profile-wrapper::after { background: linear-gradient(to top, var(--blue-1), transparent 65%); }
+            .ea-hero { background: var(--blue-1); }
+        }
+
+
+        /* Scroll-driven portrait; the text and gradient stay stationary. */
+        .ea-profile-img {
+            transform: translate3d(0, var(--portrait-y, 0px), 0) scale(var(--portrait-scale, 1.06));
+            transform-origin: center 35%;
+            will-change: transform;
+        }
+        /* Frosted white glass with a softly lit rim and inset icon tile. */
+        :is(.mv-btn.mv-ghost, .ea-card-btn) {
+            border-radius: 16px;
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
+        :is(.mv-btn.mv-ghost, .ea-card-btn) .mv-face {
+            transition: background .3s ease, box-shadow .3s ease;
+        }
+        :is(.mv-btn.mv-ghost, .ea-card-btn):is(:hover, :focus-visible) {
+            color: #182645;
+            --fg: #182645;
+            --chip2: rgba(255,255,255,.6);
+            --chipfg2: #182645;
+            box-shadow: 0 10px 30px rgba(38,56,88,.10), 0 2px 6px rgba(38,56,88,.04);
+        }
+        :is(.mv-btn.mv-ghost, .ea-card-btn):is(:hover, :focus-visible) .mv-face {
+            background: linear-gradient(135deg, rgba(255,255,255,.78), rgba(255,255,255,.48));
+            -webkit-backdrop-filter: blur(24px) saturate(1.5);
+            backdrop-filter: blur(24px) saturate(1.5);
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,.92), inset 0 2px 3px rgba(255,255,255,.65);
+        }
+        :is(.mv-btn.mv-ghost, .ea-card-btn):is(:hover, :focus-visible) .mv-fill {
+            background: transparent;
+        }
+        :is(.mv-btn.mv-ghost, .ea-card-btn):is(:hover, :focus-visible) .mv-arr {
+            background: rgba(255,255,255,.60);
+            color: #182645;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,.45);
+            border-radius: 10px;
+        }
+        :is(.mv-btn.mv-ghost, .ea-card-btn):is(:hover, :focus-visible) .mv-selb { opacity: 0; }
+        :is(.mv-btn.mv-ghost, .ea-card-btn):is(:hover, :focus-visible) .mv-lbl { color: #182645; }
+        @media (prefers-reduced-motion: reduce) {
+            .ea-profile-img { transform: none; will-change: auto; }
+            :is(.mv-btn.mv-ghost, .ea-card-btn):hover { transform: none; }
+            :is(.mv-btn.mv-ghost, .ea-card-btn):hover :is(.mv-l1, .mv-l2) { translate: none; }
+            :is(.mv-btn.mv-ghost, .ea-card-btn):hover .mv-a1 { transform: none; }
+            :is(.mv-btn.mv-ghost, .ea-card-btn):hover .mv-a2 { transform: translate(-160%, 160%); }
+        }
+
+    </style>
+    <link rel="icon" type="image/png" href="Abstract Charcoal and Teal D Emblem.png">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="ea-nav">
+        <a href="#" class="ea-logo" aria-label="Ebrahim Ali home">
+            <img src="Abstract Charcoal and Teal D Emblem.png" alt="" width="40" height="40">
+            <span>Ebrahim Ali</span>
+        </a>
+        
+        <ul class="ea-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <!-- <a href="#projects" class="ea-portfolio-icon" aria-label="View Portfolio">
+            <img src="Abstract Charcoal and Teal D Emblem.png" alt="" width="32" height="32">
+        </a> -->
+
+        <button class="ea-menu-toggle" id="menuToggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <a href="#contact" class="mv-btn mv-quiet ea-navcta">
+            <span class="mv-face">
+                <span class="mv-fill" aria-hidden></span>
+                <span class="mv-lbl">
+                    <span class="mv-roll">
+                        <span class="mv-l1">Contact Me</span>
+                        <span class="mv-l2" aria-hidden>Contact Me</span>
+                    </span>
+                </span>
+                <span class="mv-arr" aria-hidden>
+                    <span class="mv-a1">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M7 17L17 7M9 7h8v8"/>
+                        </svg>
+                    </span>
+                    <span class="mv-a2">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M7 17L17 7M9 7h8v8"/>
+                        </svg>
+                    </span>
+                </span>
+            </span>
+            <span class="mv-selb" aria-hidden>
+                <i></i><i></i><i></i><i></i>
+            </span>
+        </a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="ea-hero" id="home">
+        <div class="mv-wrap">
+            <div class="ea-hero-content">
+                <div class="ea-hero-text">
+                    <h1 class="ea-name">Ebrahim Ali</h1>
+                    <p class="ea-role">
+                        <span>UX/UI Designer</span>
+                        <span>Computer Science Graduate</span>
+                    </p>
+                    <p class="ea-statement">
+                        I design intuitive, user-centered digital experiences by combining UX research, interaction design, and technical knowledge. My background in computer science helps me connect user needs with practical, scalable solutions.
+                    </p>
+                    <div class="ea-focus">
+                        <span class="ea-focus-item">UX Research</span>
+                        <span class="ea-focus-item">User Flows</span>
+                        <span class="ea-focus-item">Wireframing</span>
+                        <span class="ea-focus-item">UI Design</span>
+                        <span class="ea-focus-item">Prototyping</span>
+                        <span class="ea-focus-item">Usability Testing</span>
+                    </div>
+                    <div class="ea-btns">
+                        <a href="#projects" class="mv-btn mv-solid">
+                            <span class="mv-face">
+                                <span class="mv-fill" aria-hidden></span>
+                                <span class="mv-lbl">
+                                    <span class="mv-roll">
+                                        <span class="mv-l1">View My Work</span>
+                                        <span class="mv-l2" aria-hidden>View My Work</span>
+                                    </span>
+                                </span>
+                                <span class="mv-arr" aria-hidden>
+                                    <span class="mv-a1">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M5 12h14M13 5l7 7-7 7"/>
+                                        </svg>
+                                    </span>
+                                    <span class="mv-a2">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M5 12h14M13 5l7 7-7 7"/>
+                                        </svg>
+                                    </span>
+                                </span>
+                            </span>
+                            <span class="mv-selb" aria-hidden>
+                                <i></i><i></i><i></i><i></i>
+                            </span>
+                        </a>
+                        <a href="#" class="mv-btn mv-ghost">
+                            <span class="mv-face">
+                                <span class="mv-fill" aria-hidden></span>
+                                <span class="mv-lbl">
+                                    <span class="mv-roll">
+                                        <span class="mv-l1">Download CV</span>
+                                        <span class="mv-l2" aria-hidden>Download CV</span>
+                                    </span>
+                                </span>
+                                <span class="mv-arr" aria-hidden>
+                                    <span class="mv-a1">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                            <polyline points="7 10 12 15 17 10"/>
+                                            <line x1="12" y1="15" x2="12" y2="3"/>
+                                        </svg>
+                                    </span>
+                                    <span class="mv-a2">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                            <polyline points="7 10 12 15 17 10"/>
+                                            <line x1="12" y1="15" x2="12" y2="3"/>
+                                        </svg>
+                                    </span>
+                                </span>
+                            </span>
+                            <span class="mv-selb" aria-hidden>
+                                <i></i><i></i><i></i><i></i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="ea-profile-wrapper">
+                    <div class="ea-profile-bg">
+                        <div class="ea-bg-shape ea-bg-shape-1"></div>
+                        <div class="ea-bg-shape ea-bg-shape-2"></div>
+                        <div class="ea-bg-shape ea-bg-shape-3"></div>
+                        <div class="ea-bg-shape ea-bg-shape-4"></div>
+                    </div>
+                    <img src="1778496923520.png" alt="Ebrahim Ali" class="ea-profile-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="mv-sec" id="projects">
+        <div class="mv-wrap">
+            <p class="mv-eb">
+                <i aria-hidden></i>
+                Portfolio
+            </p>
+            <h2 class="mv-hd">Selected Projects</h2>
+            
+            <div class="ea-projects-grid">
+                <!-- Project 1 -->
+                <article class="ea-project-card">
+                    <div class="ea-project-img">
+                        <img src="Project1.png" alt="Document Organizer Project">
+                    </div>
+                    <div class="ea-project-content">
+                        <div class="ea-project-num">01</div>
+                        <h3 class="ea-project-title">Document Organizer</h3>
+                        <p class="ea-project-type">Client Project · UX/UI Design</p>
+                        <p class="ea-project-desc">
+                            A document management solution designed to help small business owners organize invoices, receipts, and warranty documents while simplifying financial tracking.
+                        </p>
+                        <!-- <div class="ea-project-focus">
+                            <span>My focus:</span>
+                            <span>User research, information architecture, user flows, wireframes, and AI-powered document organization.</span>
+                        </div> -->
+                        <div class="ea-project-actions">
+                            <a href="#" class="mv-btn ea-card-btn" target="_blank" rel="noopener">
+                                <span class="mv-face">
+                                    <span class="mv-fill" aria-hidden></span>
+                                    <span class="mv-lbl">
+                                        <span class="mv-roll">
+                                            <span class="mv-l1">Prototype</span>
+                                            <span class="mv-l2" aria-hidden>Prototype</span>
+                                        </span>
+                                    </span>
+                                    <span class="mv-arr" aria-hidden>
+                                        <span class="mv-a1">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                                        </span>
+                                        <span class="mv-a2">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                                        </span>
+                                    </span>
+                                </span>
+                                <span class="mv-selb" aria-hidden><i></i><i></i><i></i><i></i></span>
+                            </a>
+                            <a href="#" class="mv-btn ea-card-btn" target="_blank" rel="noopener">
+                                <span class="mv-face">
+                                    <span class="mv-fill" aria-hidden></span>
+                                    <span class="mv-lbl">
+                                        <span class="mv-roll">
+                                            <span class="mv-l1">Presentation</span>
+                                            <span class="mv-l2" aria-hidden>Presentation</span>
+                                        </span>
+                                    </span>
+                                    <span class="mv-arr" aria-hidden>
+                                        <span class="mv-a1">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>
+                                        </span>
+                                        <span class="mv-a2">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>
+                                        </span>
+                                    </span>
+                                </span>
+                                <span class="mv-selb" aria-hidden><i></i><i></i><i></i><i></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 2 -->
+                <article class="ea-project-card">
+                    <div class="ea-project-img">
+                        <img src="Project2.png" alt="Roots E-Commerce Project">
+                    </div>
+                    <div class="ea-project-content">
+                        <div class="ea-project-num">02</div>
+                        <h3 class="ea-project-title">Roots E-Commerce</h3>
+                        <p class="ea-project-type">Concept Project · UX/UI Design</p>
+                        <p class="ea-project-desc">
+                            An e-commerce experience for plant lovers, focused on discovering plants and gardening products through a clean, nature-inspired interface.
+                        </p>
+                        <!-- <div class="ea-project-focus">
+                            <span>My focus:</span>
+                            <span>Brand direction, user journey, product discovery, wireframes, and UI design.</span>
+                        </div> -->
+                        <div class="ea-project-actions">
+                            <a href="#" class="mv-btn ea-card-btn" target="_blank" rel="noopener">
+                                <span class="mv-face">
+                                    <span class="mv-fill" aria-hidden></span>
+                                    <span class="mv-lbl">
+                                        <span class="mv-roll">
+                                            <span class="mv-l1">Prototype</span>
+                                            <span class="mv-l2" aria-hidden>Prototype</span>
+                                        </span>
+                                    </span>
+                                    <span class="mv-arr" aria-hidden>
+                                        <span class="mv-a1">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                                        </span>
+                                        <span class="mv-a2">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                                        </span>
+                                    </span>
+                                </span>
+                                <span class="mv-selb" aria-hidden><i></i><i></i><i></i><i></i></span>
+                            </a>
+                            <a href="#" class="mv-btn ea-card-btn" target="_blank" rel="noopener">
+                                <span class="mv-face">
+                                    <span class="mv-fill" aria-hidden></span>
+                                    <span class="mv-lbl">
+                                        <span class="mv-roll">
+                                            <span class="mv-l1">Presentation</span>
+                                            <span class="mv-l2" aria-hidden>Presentation</span>
+                                        </span>
+                                    </span>
+                                    <span class="mv-arr" aria-hidden>
+                                        <span class="mv-a1">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>
+                                        </span>
+                                        <span class="mv-a2">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>
+                                        </span>
+                                    </span>
+                                </span>
+                                <span class="mv-selb" aria-hidden><i></i><i></i><i></i><i></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 3 -->
+                <article class="ea-project-card">
+                    <div class="ea-project-img">
+                        <img src="Project3.png" alt="Bahrain Fort Website Project">
+                    </div>
+                    <div class="ea-project-content">
+                        <div class="ea-project-num">03</div>
+                        <h3 class="ea-project-title">Bahrain Fort Website</h3>
+                        <p class="ea-project-type">Concept Project · UX/UI Design</p>
+                        <p class="ea-project-desc">
+                            A digital visitor experience designed to help people explore Bahrain Fort, discover its heritage, and navigate important site information.
+                        </p>
+                        <!-- <div class="ea-project-focus">
+                            <span>My focus:</span>
+                            <span>Research, information architecture, navigation, user flows, and interactive site-map concepts.</span>
+                        </div> -->
+                        <div class="ea-project-actions">
+                            <a href="#" class="mv-btn ea-card-btn" target="_blank" rel="noopener">
+                                <span class="mv-face">
+                                    <span class="mv-fill" aria-hidden></span>
+                                    <span class="mv-lbl">
+                                        <span class="mv-roll">
+                                            <span class="mv-l1">Prototype</span>
+                                            <span class="mv-l2" aria-hidden>Prototype</span>
+                                        </span>
+                                    </span>
+                                    <span class="mv-arr" aria-hidden>
+                                        <span class="mv-a1">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                                        </span>
+                                        <span class="mv-a2">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                                        </span>
+                                    </span>
+                                </span>
+                                <span class="mv-selb" aria-hidden><i></i><i></i><i></i><i></i></span>
+                            </a>
+                            <a href="#" class="mv-btn ea-card-btn" target="_blank" rel="noopener">
+                                <span class="mv-face">
+                                    <span class="mv-fill" aria-hidden></span>
+                                    <span class="mv-lbl">
+                                        <span class="mv-roll">
+                                            <span class="mv-l1">Presentation</span>
+                                            <span class="mv-l2" aria-hidden>Presentation</span>
+                                        </span>
+                                    </span>
+                                    <span class="mv-arr" aria-hidden>
+                                        <span class="mv-a1">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>
+                                        </span>
+                                        <span class="mv-a2">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>
+                                        </span>
+                                    </span>
+                                </span>
+                                <span class="mv-selb" aria-hidden><i></i><i></i><i></i><i></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 4 -->
+                <article class="ea-project-card">
+                    <div class="ea-project-img">
+                        <img src="Project4.png" alt="Wajba Vendor MPOS Project">
+                    </div>
+                    <div class="ea-project-content">
+                        <div class="ea-project-num">04</div>
+                        <h3 class="ea-project-title">Wajba Vendor MPOS</h3>
+                        <p class="ea-project-type">General Assembly · Team Client Project</p>
+                        <p class="ea-project-desc">
+                            A mobile point-of-sale experience designed to help food vendors manage surplus-food bags, orders, and customer pickups more efficiently.
+                        </p>
+                        <!-- <div class="ea-project-focus">
+                            <span>My focus:</span>
+                            <span>Information architecture, user journeys, usability testing, and design improvements.</span>
+                        </div> -->
+                        <div class="ea-project-actions">
+                            <a href="#" class="mv-btn ea-card-btn" target="_blank" rel="noopener">
+                                <span class="mv-face">
+                                    <span class="mv-fill" aria-hidden></span>
+                                    <span class="mv-lbl">
+                                        <span class="mv-roll">
+                                            <span class="mv-l1">Prototype</span>
+                                            <span class="mv-l2" aria-hidden>Prototype</span>
+                                        </span>
+                                    </span>
+                                    <span class="mv-arr" aria-hidden>
+                                        <span class="mv-a1">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                                        </span>
+                                        <span class="mv-a2">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                                        </span>
+                                    </span>
+                                </span>
+                                <span class="mv-selb" aria-hidden><i></i><i></i><i></i><i></i></span>
+                            </a>
+                            <a href="#" class="mv-btn ea-card-btn" target="_blank" rel="noopener">
+                                <span class="mv-face">
+                                    <span class="mv-fill" aria-hidden></span>
+                                    <span class="mv-lbl">
+                                        <span class="mv-roll">
+                                            <span class="mv-l1">Presentation</span>
+                                            <span class="mv-l2" aria-hidden>Presentation</span>
+                                        </span>
+                                    </span>
+                                    <span class="mv-arr" aria-hidden>
+                                        <span class="mv-a1">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>
+                                        </span>
+                                        <span class="mv-a2">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>
+                                        </span>
+                                    </span>
+                                </span>
+                                <span class="mv-selb" aria-hidden><i></i><i></i><i></i><i></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="mv-sec mv-dark" id="about">
+        <div class="mv-wrap">
+            <p class="mv-eb">
+                <i aria-hidden></i>
+                Background
+            </p>
+            <h2 class="mv-hd">About Me</h2>
+            
+            <div class="ea-about-content">
+                <div class="ea-about-text">
+                    I hold a Bachelor of Technology in Computer Science from the University of Bahrain and have experience across software development, cloud technologies, and AI solutions. Through General Assembly's UX/UI Designer Bootcamp, I developed my design skills and applied user-centered methods to practical projects.
+                </div>
+                
+                <div class="ea-about-edu">
+                    <h3>Education</h3>
+                    <p>Bachelor of Technology in Computer Science - University of Bahrain</p>
+                    <p>General Assembly UX/UI Designer Bootcamp</p>
+                </div>
+                
+                <div class="ea-about-goal">
+                    <p>My goal is to create digital products that balance usability, thoughtful design, and technical feasibility.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="mv-sec" id="skills">
+        <div class="mv-wrap">
+            <p class="mv-eb">
+                <i aria-hidden></i>
+                Capabilities
+            </p>
+            <h2 class="mv-hd">Skills & Tools</h2>
+            
+            <div class="ea-skills-grid">
+                <div class="ea-skill-category">
+                    <h3 class="ea-skill-title" style="color: var(--mv-brass);">UX</h3>
+                    <ul class="ea-skill-list">
+                        <li>User research</li>
+                        <li>Personas</li>
+                        <li>User journeys</li>
+                        <li>Information architecture</li>
+                        <li>Usability testing</li>
+                    </ul>
+                </div>
+
+                <div class="ea-skill-category">
+                    <h3 class="ea-skill-title" style="color: var(--mv-pine);">UI</h3>
+                    <ul class="ea-skill-list">
+                        <li>Wireframing</li>
+                        <li>Prototyping</li>
+                        <li>Responsive design</li>
+                        <li>Design systems</li>
+                    </ul>
+                </div>
+
+                <div class="ea-skill-category">
+                    <h3 class="ea-skill-title" style="color: var(--mv-stone);">Tools</h3>
+                    <ul class="ea-skill-list">
+                        <li>Figma</li>
+                        <li>FigJam</li>
+                        <li>Balsamiq</li>
+                        <li>Canva</li>
+                    </ul>
+                </div>
+
+                <div class="ea-skill-category">
+                    <h3 class="ea-skill-title" style="color: var(--mv-brass);">Technical</h3>
+                    <ul class="ea-skill-list">
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>JavaScript</li>
+                        <li>React</li>
+                        <li>SQL</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="mv-sec mv-dark" id="contact">
+        <div class="mv-wrap">
+            <div class="ea-contact-content">
+                <h2 class="mv-hd">Let's Connect</h2>
+                
+                <p class="ea-contact-intro">
+                    I'm always interested in hearing about new projects and opportunities.
+                </p>
+                
+                <div class="ea-contact-links">
+                    <a href="mailto:Ebraali2003@gmail.com" class="ea-contact-link">
+                        <span class="ea-link-label">Email</span>
+                        <span class="ea-link-value">Ebraali2003@gmail.com</span>
+                    </a>
+                    
+                    <a href="tel:+97333928495" class="ea-contact-link">
+                        <span class="ea-link-label">Phone</span>
+                        <span class="ea-link-value">+973 33928495</span>
+                    </a>
+                    
+                    <a href="https://www.linkedin.com/in/ebraali2003" target="_blank" rel="noopener" class="ea-contact-link">
+                        <span class="ea-link-label">LinkedIn</span>
+                        <span class="ea-link-value">linkedin.com/in/ebraali2003</span>
+                    </a>
+                </div>
+                
+                <div class="ea-contact-cta">
+                    <a href="mailto:Ebraali2003@gmail.com" class="mv-btn mv-solid">
+                        <span class="mv-face">
+                            <span class="mv-fill" aria-hidden></span>
+                            <span class="mv-lbl">
+                                <span class="mv-roll">
+                                    <span class="mv-l1">Get In Touch</span>
+                                    <span class="mv-l2" aria-hidden>Get In Touch</span>
+                                </span>
+                            </span>
+                            <span class="mv-arr" aria-hidden>
+                                <span class="mv-a1">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                        <polyline points="22,6 12,13 2,6"/>
+                                    </svg>
+                                </span>
+                                <span class="mv-a2">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                        <polyline points="22,6 12,13 2,6"/>
+                                    </svg>
+                                </span>
+                            </span>
+                        </span>
+                        <span class="mv-selb" aria-hidden>
+                            <i></i><i></i><i></i><i></i>
+                        </span>
+                    </a>
+                </div>
+                
+                <footer class="ea-footer">
+                    <p>© 2026 Ebrahim Ali. All rights reserved.</p>
+                </footer>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.mv-sec').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to navigation
+        let lastScroll = 0;
+        const nav = document.querySelector('.ea-nav');
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                nav.style.boxShadow = '0 2px 20px color-mix(in srgb, var(--mv-ink) 10%, transparent)';
+            } else {
+                nav.style.boxShadow = 'none';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Coalesce scroll updates into a single frame; respect motion preferences.
+        const portraitHero = document.querySelector('.ea-hero');
+        const portrait = document.querySelector('.ea-profile-img');
+        const portraitMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        let portraitFrame = null;
+        function updatePortraitMotion() {
+            portraitFrame = null;
+            if (!portraitHero || !portrait) return;
+            if (portraitMotion.matches) {
+                portrait.style.removeProperty('--portrait-y');
+                portrait.style.removeProperty('--portrait-scale');
+                return;
+            }
+            const bounds = portraitHero.getBoundingClientRect();
+            const progress = Math.min(1, Math.max(0, -bounds.top / bounds.height));
+            const distance = window.innerWidth <= 809 ? 28 : 80;
+            portrait.style.setProperty('--portrait-y', (progress * distance).toFixed(2) + 'px');
+            portrait.style.setProperty('--portrait-scale', (1.06 + progress * .04).toFixed(4));
+        }
+        function schedulePortraitMotion() {
+            if (portraitFrame === null) portraitFrame = requestAnimationFrame(updatePortraitMotion);
+        }
+        window.addEventListener('scroll', schedulePortraitMotion, { passive: true });
+        window.addEventListener('resize', schedulePortraitMotion);
+        portraitMotion.addEventListener('change', schedulePortraitMotion);
+        updatePortraitMotion();
+
+    </script>
+</body>
+</html>
